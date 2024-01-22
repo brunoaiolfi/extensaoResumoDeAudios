@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import * as Style from './App.Styles';
 import { api } from './infra/api';
+import { toast } from 'react-toastify';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
 
   async function submit() {
     try {
+      debugger
       setTextError('');
       setTextResumo('');
       setIsLoading(true);
@@ -42,8 +44,9 @@ function App() {
 
   async function handleCopyBoard() {
     try {
+      if (!textResumo) return;
       await window.navigator.clipboard.writeText(textResumo)
-      alert("Texto copiado!")
+      toast("Texto copiado!")
     } catch (error) {
       console.log(error)
     }
@@ -79,7 +82,7 @@ function App() {
           </Style.Loading>
         }
         <Style.FooterWrapper>
-          <Style.Button onClick={submit} >Upload</Style.Button>
+          <Style.Button onClick={submit}>Upload</Style.Button>
           <Style.ButtonCopyBoard onClick={handleCopyBoard}><Style.IconCopy /></Style.ButtonCopyBoard>
         </Style.FooterWrapper>
       </Style.Footer>
